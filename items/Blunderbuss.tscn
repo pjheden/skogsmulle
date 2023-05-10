@@ -1,0 +1,120 @@
+[gd_scene load_steps=18 format=3 uid="uid://csstboe5s8v0x"]
+
+[ext_resource type="PackedScene" uid="uid://chjm7kdfljtw2" path="res://items/Item.tscn" id="1_jflyf"]
+[ext_resource type="Script" path="res://items/Blunderbuss.gd" id="2_oaeh3"]
+[ext_resource type="PackedScene" uid="uid://h1100h5xghv1" path="res://items/blunderbuss.glb" id="3_marn0"]
+[ext_resource type="Script" path="res://items/Smoke.gd" id="4_b7g3c"]
+[ext_resource type="Script" path="res://items/MuzzleFlash.gd" id="4_skewt"]
+
+[sub_resource type="Curve" id="Curve_5vk0e"]
+_data = [Vector2(0, 0.127273), 0.0, 0.0, 0, 0, Vector2(0.717026, 0.618182), 0.0, 0.0, 0, 0, Vector2(0.992806, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_26s1s"]
+curve = SubResource("Curve_5vk0e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yp67b"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_max = 7.0
+linear_accel_max = 3.0
+angle_max = 360.0
+scale_min = 0.69
+scale_curve = SubResource("CurveTexture_26s1s")
+hue_variation_min = -0.02
+hue_variation_max = 0.03
+turbulence_enabled = true
+turbulence_noise_strength = 0.18
+turbulence_noise_scale = 1.99
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6yg4u"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.403922, 0.403922, 0.403922, 0.431373)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_wdbql"]
+material = SubResource("StandardMaterial3D_6yg4u")
+
+[sub_resource type="Gradient" id="Gradient_e3cdm"]
+colors = PackedColorArray(0.408678, 0.509374, 0, 1, 0.481273, 1.09497e-06, 2.40654e-07, 0.34902)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_2crln"]
+gradient = SubResource("Gradient_e3cdm")
+
+[sub_resource type="Curve" id="Curve_3assd"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0983213, 1), 0.0, 0.0, 0, 0, Vector2(0.995204, 0.2), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_f702e"]
+width = 2048
+curve = SubResource("Curve_3assd")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dd1se"]
+emission_shape = 1
+emission_sphere_radius = 0.4
+direction = Vector3(0, 1, 0)
+spread = 0.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+angular_velocity_max = 40.0
+linear_accel_max = 4.0
+angle_min = 1.0
+angle_max = 360.0
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_f702e")
+color_ramp = SubResource("GradientTexture1D_2crln")
+hue_variation_min = -0.01
+hue_variation_max = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o62tl"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.894118, 0.254902, 0.270588, 1)
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_7tm6m"]
+material = SubResource("StandardMaterial3D_o62tl")
+
+[node name="Blunderbuss" instance=ExtResource("1_jflyf")]
+collision_layer = 2
+script = ExtResource("2_oaeh3")
+back_position_bias = Vector3(0, -0.35, 0)
+rotation_bias = Vector3(0, -0.35, 0)
+
+[node name="model" parent="." index="1" instance=ExtResource("3_marn0")]
+
+[node name="Smoke" type="GPUParticles3D" parent="Emitters" index="0"]
+transform = Transform3D(1, -2.20128e-08, -5.94733e-09, 2.20128e-08, 0.863941, 0.503593, -5.94733e-09, -0.503593, 0.863941, -0.066349, 0.231937, -1.96719)
+amount = 100
+lifetime = 0.8
+randomness = 1.0
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_yp67b")
+draw_pass_1 = SubResource("QuadMesh_wdbql")
+script = ExtResource("4_b7g3c")
+emitting_time = 3.0
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="Emitters" index="1"]
+transform = Transform3D(1, 5.30548e-10, 6.78974e-09, -6.78974e-09, 0.155331, 0.987862, -5.30548e-10, -0.987862, 0.155331, -0.0592017, 0.284652, -2.18899)
+amount = 200
+lifetime = 0.5
+randomness = 1.0
+draw_order = 3
+trail_lifetime = 5.05
+process_material = SubResource("ParticleProcessMaterial_dd1se")
+draw_pass_1 = SubResource("QuadMesh_7tm6m")
+script = ExtResource("4_skewt")
+emitting_time = 0.2

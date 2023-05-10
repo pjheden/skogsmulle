@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=3 uid="uid://cyxvdwvnwxjbu"]
+
+[ext_resource type="Script" path="res://characters/Character.gd" id="1_vv4j6"]
+[ext_resource type="Script" path="res://characters/StateManager.gd" id="2_qrahg"]
+[ext_resource type="Script" path="res://characters/Idle.gd" id="3_4b5h2"]
+[ext_resource type="Script" path="res://characters/Run.gd" id="4_dnnj8"]
+[ext_resource type="Script" path="res://characters/Sneak.gd" id="5_37mlt"]
+[ext_resource type="Script" path="res://characters/Dodge.gd" id="6_g7hlf"]
+[ext_resource type="Script" path="res://characters/DebugLabels.gd" id="8_tnrtr"]
+[ext_resource type="Script" path="res://characters/PickupArea.gd" id="9_cv46v"]
+[ext_resource type="Script" path="res://characters/CameraRig.gd" id="9_vqv8y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6is6"]
+radius = 0.574669
+height = 3.03198
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ko66f"]
+
+[node name="Character" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42211, 0)
+script = ExtResource("1_vv4j6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.175363, 0)
+shape = SubResource("CapsuleShape3D_f6is6")
+
+[node name="StateManager" type="Node" parent="."]
+script = ExtResource("2_qrahg")
+starting_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateManager"]
+script = ExtResource("3_4b5h2")
+sneak_node = NodePath("../Sneak")
+run_node = NodePath("../Run")
+dodge_node = NodePath("../Dodge")
+animation_name = "IdleRunBlend"
+rifle_animation_name = "IdleRunRifleBlend"
+
+[node name="Run" type="Node" parent="StateManager"]
+script = ExtResource("4_dnnj8")
+move_speed = 10.0
+idle_node = NodePath("../Idle")
+dodge_node = NodePath("../Dodge")
+run_node = NodePath(".")
+sneak_node = NodePath("../Sneak")
+animation_name = "IdleRunBlend"
+rifle_animation_name = "IdleRifleRunBlend"
+
+[node name="Sneak" type="Node" parent="StateManager"]
+script = ExtResource("5_37mlt")
+move_speed = 10.0
+idle_node = NodePath("../Idle")
+dodge_node = NodePath("../Dodge")
+run_node = NodePath("../Run")
+sneak_node = NodePath(".")
+animation_name = "SneakFixed"
+
+[node name="Dodge" type="Node" parent="StateManager"]
+script = ExtResource("6_g7hlf")
+dodge_time = 0.9
+move_speed = 15.0
+idle_node = NodePath("../Idle")
+dodge_node = NodePath(".")
+run_node = NodePath("../Run")
+animation_name = "Dive"
+
+[node name="PickupArea" type="Area3D" parent="."]
+collision_mask = 3
+script = ExtResource("9_cv46v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickupArea"]
+transform = Transform3D(4.42427, 0, 0, 0, 4.42427, 0, 0, 0, 4.42427, 0, 0, 0)
+shape = SubResource("BoxShape3D_ko66f")
+
+[node name="DebugLabels" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("8_tnrtr")
+
+[node name="GridContainer" type="GridContainer" parent="DebugLabels"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="State" type="Label" parent="DebugLabels/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.701961, 0.588235, 1)
+theme_override_font_sizes/font_size = 32
+text = "State
+"
+
+[node name="Position" type="Label" parent="DebugLabels/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.701961, 0.588235, 1)
+theme_override_font_sizes/font_size = 32
+text = "Pos"
+
+[node name="Rotation" type="Label" parent="DebugLabels/GridContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.701961, 0.588235, 1)
+theme_override_font_sizes/font_size = 32
+text = "Rot"
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("9_vqv8y")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraRig"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.12503, 0)
+spring_length = 3.0
+
+[node name="Camera" type="Camera3D" parent="CameraRig/SpringArm3D"]
+current = true
+
+[connection signal="transitioned" from="StateManager" to="DebugLabels" method="_on_state_manager_transitioned"]

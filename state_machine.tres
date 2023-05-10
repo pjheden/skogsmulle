@@ -1,0 +1,161 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=36 format=3 uid="uid://c13i0m22nm66b"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ldcfm"]
+animation = &"AimIdleRifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jp882"]
+animation = &"Dive"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_woi2u"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_tpbt1"]
+graph_offset = Vector2(-383.427, 6.6341)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_jp882")
+nodes/Animation/position = Vector2(-240, 140)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_woi2u")
+nodes/TimeScale/position = Vector2(0, 120)
+nodes/output/position = Vector2(220, 140)
+node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"Animation"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tf8ko"]
+animation = &"Dying"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7xv83"]
+animation = &"HideRifle"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7p24l"]
+animation = &"HideRifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sjpsv"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u5x8f"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_vs2xx"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_sjpsv")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_u5x8f")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o7pm0"]
+animation = &"IdleRifle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f0b4r"]
+animation = &"RunRifle"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_7tgca"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_o7pm0")
+blend_point_0/pos = 0.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_f0b4r")
+blend_point_1/pos = 1.0
+min_space = 0.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ldxn"]
+animation = &"SneakFixed"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_layfo"]
+animation = &"StandAim"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0c4bp"]
+animation = &"StandAim"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ahsk"]
+animation = &"StandFire"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4q5o1"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_37unv"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cldmq"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ni7la"]
+xfade_time = 0.3
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uwjlu"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_adkke"]
+xfade_time = 0.3
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nkf8p"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2666u"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3aul4"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qcgp7"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_57430"]
+xfade_time = 0.3
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_21v6y"]
+xfade_time = 0.3
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cpqqe"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_03oul"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ocv1"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"equip"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xuk67"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4q8xr"]
+xfade_time = 0.3
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_03ng3"]
+xfade_time = 0.3
+advance_mode = 2
+advance_condition = &"unequip"
+
+[resource]
+allow_transition_to_self = true
+states/AimIdleRifle/node = SubResource("AnimationNodeAnimation_ldcfm")
+states/AimIdleRifle/position = Vector2(509.655, 214.296)
+states/Dive/node = SubResource("AnimationNodeBlendTree_tpbt1")
+states/Dive/position = Vector2(290, -62)
+states/Dying/node = SubResource("AnimationNodeAnimation_tf8ko")
+states/Dying/position = Vector2(-52, 157)
+states/End/position = Vector2(-52, 316)
+states/EquipRifle/node = SubResource("AnimationNodeAnimation_7xv83")
+states/EquipRifle/position = Vector2(-213, 128)
+states/HideRifle/node = SubResource("AnimationNodeAnimation_7p24l")
+states/HideRifle/position = Vector2(-213, 184)
+states/IdleRunBlend/node = SubResource("AnimationNodeBlendSpace1D_vs2xx")
+states/IdleRunBlend/position = Vector2(134, 42)
+states/IdleRunRifleBlend/node = SubResource("AnimationNodeBlendSpace1D_7tgca")
+states/IdleRunRifleBlend/position = Vector2(134, 209)
+states/SneakFixed/node = SubResource("AnimationNodeAnimation_4ldxn")
+states/SneakFixed/position = Vector2(420, 42)
+states/StandAim/node = SubResource("AnimationNodeAnimation_layfo")
+states/StandAim/position = Vector2(338.655, 212)
+states/StandAim2/node = SubResource("AnimationNodeAnimation_0c4bp")
+states/StandAim2/position = Vector2(338.655, 138)
+states/StandFire/node = SubResource("AnimationNodeAnimation_6ahsk")
+states/StandFire/position = Vector2(509.655, 128)
+states/Start/position = Vector2(-47, 42)
+transitions = ["Start", "IdleRunBlend", SubResource("AnimationNodeStateMachineTransition_4q5o1"), "IdleRunBlend", "SneakFixed", SubResource("AnimationNodeStateMachineTransition_37unv"), "SneakFixed", "IdleRunBlend", SubResource("AnimationNodeStateMachineTransition_cldmq"), "Dive", "SneakFixed", SubResource("AnimationNodeStateMachineTransition_ni7la"), "SneakFixed", "Dive", SubResource("AnimationNodeStateMachineTransition_uwjlu"), "Dive", "IdleRunBlend", SubResource("AnimationNodeStateMachineTransition_adkke"), "IdleRunBlend", "Dive", SubResource("AnimationNodeStateMachineTransition_nkf8p"), "Dying", "End", SubResource("AnimationNodeStateMachineTransition_2666u"), "StandAim", "AimIdleRifle", SubResource("AnimationNodeStateMachineTransition_3aul4"), "AimIdleRifle", "StandFire", SubResource("AnimationNodeStateMachineTransition_qcgp7"), "StandFire", "AimIdleRifle", SubResource("AnimationNodeStateMachineTransition_57430"), "IdleRunRifleBlend", "StandAim", SubResource("AnimationNodeStateMachineTransition_21v6y"), "IdleRunBlend", "Dying", SubResource("AnimationNodeStateMachineTransition_cpqqe"), "IdleRunRifleBlend", "Dying", SubResource("AnimationNodeStateMachineTransition_03oul"), "IdleRunBlend", "IdleRunRifleBlend", SubResource("AnimationNodeStateMachineTransition_6ocv1"), "AimIdleRifle", "StandAim2", SubResource("AnimationNodeStateMachineTransition_xuk67"), "StandAim2", "IdleRunRifleBlend", SubResource("AnimationNodeStateMachineTransition_4q8xr"), "IdleRunRifleBlend", "IdleRunBlend", SubResource("AnimationNodeStateMachineTransition_03ng3")]
+graph_offset = Vector2(-340.345, 13.4228)

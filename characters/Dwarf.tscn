@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dd81vwfpibfcw"]
+
+[ext_resource type="PackedScene" uid="uid://cyxvdwvnwxjbu" path="res://characters/Character.tscn" id="1_84hf8"]
+[ext_resource type="PackedScene" uid="uid://v46b00grgj65" path="res://characters/dwarf_model.tscn" id="3_liy7g"]
+[ext_resource type="Script" path="res://characters/Aim.gd" id="3_t1qfe"]
+
+[node name="Dwarf" instance=ExtResource("1_84hf8")]
+
+[node name="model" parent="." index="0" instance=ExtResource("3_liy7g")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -1.257, 0)
+
+[node name="Idle" parent="StateManager" index="0"]
+aim_node = NodePath("../Aim")
+
+[node name="Run" parent="StateManager" index="1"]
+aim_node = NodePath("../Aim")
+rifle_animation_name = "IdleRunRifleBlend"
+
+[node name="Sneak" parent="StateManager" index="2"]
+move_speed = 6.0
+rotation_speed = 6.0
+aim_node = NodePath("../Aim")
+
+[node name="Dodge" parent="StateManager" index="3"]
+sneak_node = NodePath("../Sneak")
+aim_node = NodePath("../Aim")
+
+[node name="Aim" type="Node" parent="StateManager" index="4"]
+script = ExtResource("3_t1qfe")
+dodge_node = NodePath("../Dodge")
+idle_node = NodePath("../Idle")
+animation_name = "AimIdleRifle"

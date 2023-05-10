@@ -1,0 +1,438 @@
+[gd_scene load_steps=12 format=3 uid="uid://byt3h6umxvlmh"]
+
+[ext_resource type="PackedScene" uid="uid://dd81vwfpibfcw" path="res://characters/Dwarf.tscn" id="1_ic74k"]
+[ext_resource type="Material" uid="uid://c5trc4hy86utg" path="res://Environment/Terrain/terrain_mat.tres" id="1_k07nn"]
+[ext_resource type="PackedScene" uid="uid://dgq8ana8cbbu1" path="res://Environment/Trees/tree.tscn" id="2_g6lbv"]
+[ext_resource type="PackedScene" uid="uid://dcogrcftdtopu" path="res://Environment/Bushes/bush.tscn" id="3_48iot"]
+[ext_resource type="PackedScene" uid="uid://bh0rcvby8ti3t" path="res://Environment/grass/GrassChunk.tscn" id="4_s72hq"]
+[ext_resource type="PackedScene" uid="uid://csstboe5s8v0x" path="res://items/Blunderbuss.tscn" id="6_7souj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m3a4f"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_2gje6"]
+sky_material = SubResource("ProceduralSkyMaterial_m3a4f")
+
+[sub_resource type="Environment" id="Environment_2qq5j"]
+background_mode = 2
+sky = SubResource("Sky_2gje6")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_i35m7"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7xj2v"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="World" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2qq5j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.955036, 0.256769, -0.148245, 0, 0.5, 0.866025, 0.296491, 0.827085, -0.477518, -0.846371, 20.8612, -16.0643)
+shadow_enabled = true
+
+[node name="Ground" type="MeshInstance3D" parent="."]
+transform = Transform3D(213.375, 0, 0, 0, 0.911205, 0, 0, 0, 186.817, -0.536845, 0.0664195, 0.152852)
+material_override = ExtResource("1_k07nn")
+mesh = SubResource("BoxMesh_i35m7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ground"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_7xj2v")
+
+[node name="dwarf" parent="." instance=ExtResource("1_ic74k")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -1.44805, 3.55417, 1.06406)
+
+[node name="Trees" type="Node3D" parent="."]
+transform = Transform3D(5.66487, 0, 0, 0, 5.66487, 0, 0, 0, 5.66487, 0, -9.53674e-07, -0.613982)
+
+[node name="Tree1Geo" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -12.5812, -0.0517349, 1.81378)
+skeleton = NodePath("../..")
+
+[node name="Tree1Geo2" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -15.4254, 0.0117248, -10.1063)
+
+[node name="Tree1Geo3" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 12.5036, 0.0709275, -7.62587)
+
+[node name="Tree1Geo4" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 13.5447, 0.0117248, 6.13559)
+
+[node name="Tree1Geo5" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -3.84296, 0.0117248, -6.19819)
+
+[node name="Tree1Geo6" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -6.58221, 0.0117248, 9.8512)
+
+[node name="Tree1Geo7" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 2.555, 0.0117248, 6.34343)
+
+[node name="Tree1Geo8" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 8.29025, 0.0117248, -2.25123)
+
+[node name="Tree1Geo9" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 3.51595, 0.0117248, -12.0302)
+
+[node name="Tree1Geo10" parent="Trees" instance=ExtResource("2_g6lbv")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -9.02105, 0.0117248, -11.3612)
+
+[node name="Bushes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 3.82762, 1)
+
+[node name="Bush1" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -27.2768, -3.30561, -20.8763)
+skeleton = NodePath("../..")
+
+[node name="Bush2" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -21.8213, -3.30549, 0.142696)
+skeleton = NodePath("../..")
+
+[node name="Bush3" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -75.05, -3.30549, 33.4474)
+skeleton = NodePath("../..")
+
+[node name="Bush4" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -80.0488, -3.30549, -16.3228)
+skeleton = NodePath("../..")
+
+[node name="Bush5" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -6.37142, -3.30549, -60.4422)
+skeleton = NodePath("../..")
+
+[node name="Bush6" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 51.8749, -3.30549, -48.706)
+skeleton = NodePath("../..")
+
+[node name="Bush7" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 50.5709, -3.30549, 24.9713)
+skeleton = NodePath("../..")
+
+[node name="Bush8" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 39.0521, -3.30549, 56.7025)
+skeleton = NodePath("../..")
+
+[node name="Bush9" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -10.2609, -3.30549, 81.8532)
+skeleton = NodePath("../..")
+
+[node name="Bush10" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 28.4738, -3.30549, -26.6631)
+skeleton = NodePath("../..")
+
+[node name="Bush11" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 82.8798, -3.30549, 78.6007)
+skeleton = NodePath("../..")
+
+[node name="Bush12" parent="Bushes" instance=ExtResource("3_48iot")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 14.4481, -2.88134, 31.9523)
+skeleton = NodePath("../..")
+
+[node name="Grass" type="Node3D" parent="."]
+
+[node name="grass_chunk_scene" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -26.3709, 0.522022, 13.7365)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene2" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -22.9802, 0.522133, 13.2528)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene3" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -24.5996, 0.522133, 13.3094)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene4" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -24.5467, 0.522133, 15.1066)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene5" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -25.974, 0.522133, 15.2388)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene6" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -46.8456, 0.522022, -14.695)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene7" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -43.4549, 0.522133, -15.1786)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene8" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -45.0743, 0.522133, -15.1221)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene9" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -45.0214, 0.522133, -13.3249)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene10" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -46.4486, 0.522133, -13.1928)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene11" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 9.53726, 0.522022, -6.45033)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene12" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 12.9279, 0.522133, -6.93397)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene13" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 11.3085, 0.522133, -6.87745)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene14" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 11.3614, 0.522133, -5.08021)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene15" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 9.93418, 0.522133, -4.94806)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene16" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 46.2393, 0.522022, 34.507)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene17" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 49.6299, 0.522133, 34.0234)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene18" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 48.0105, 0.522133, 34.0798)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene19" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 48.0634, 0.522133, 35.8771)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene20" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 46.6362, 0.522133, 36.0092)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene21" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -12.8031, 0.522022, 53.124)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene22" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -9.41246, 0.522133, 52.6403)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene23" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -11.0318, 0.522133, 52.6969)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene24" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -10.979, 0.522133, 54.494)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene25" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -12.4062, 0.522133, 54.6263)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene26" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -13.7143, 0.522022, 82.2825)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene27" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -10.3236, 0.522133, 81.7989)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene28" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -11.943, 0.522133, 81.8554)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene29" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -11.8902, 0.522133, 83.6526)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene30" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -13.3174, 0.522133, 83.7848)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene31" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 1.97713, 0.522022, -36.3342)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene32" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 5.36779, 0.522133, -36.8178)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene33" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 3.74841, 0.522133, -36.7613)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene34" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 3.80128, 0.522133, -34.964)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene35" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 2.37405, 0.522133, -34.8319)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene36" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -48.0228, 0.522022, -53.0894)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene37" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -44.6321, 0.522133, -53.5731)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene38" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -46.2515, 0.522133, -53.5165)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene39" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -46.1986, 0.522133, -51.7193)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene40" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -47.6258, 0.522133, -51.5871)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene41" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -83.5598, 0.522022, -37.5989)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene42" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -80.1691, 0.522133, -38.0826)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene43" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -81.7885, 0.522133, -38.026)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene44" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -81.7356, 0.522133, -36.2288)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene45" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -83.1628, 0.522133, -36.0966)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene46" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -89.027, 0.522022, 11.6062)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene47" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -85.6363, 0.522133, 11.1225)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene48" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -87.2557, 0.522133, 11.1791)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene49" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -87.2029, 0.522133, 12.9762)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene50" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -88.6301, 0.522133, 13.1085)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene51" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -61.8994, 0.522022, 44.3188)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene52" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -58.5087, 0.522133, 43.8352)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene53" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -60.1281, 0.522133, 43.8917)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene54" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -60.0753, 0.522133, 45.689)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene55" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, -61.5025, 0.522133, 45.8211)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene56" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 49.2705, 0.522022, -3.81935)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene57" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 52.6611, 0.522133, -4.30298)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene58" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 51.0418, 0.522133, -4.24646)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene59" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 51.0946, 0.522133, -2.44921)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene60" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 49.6674, 0.522133, -2.31706)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene61" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 71.0789, 0.522022, -0.361913)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene62" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 74.4696, 0.522133, -0.845546)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene63" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 72.8502, 0.522133, -0.789015)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene64" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 72.903, 0.522133, 1.00822)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene65" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 71.4758, 0.522133, 1.14037)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene66" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 39.1641, 0.522022, -33.6065)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene67" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 42.5548, 0.522133, -34.0902)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene68" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 40.9354, 0.522133, -34.0336)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene69" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 40.9883, 0.522133, -32.2364)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene70" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 39.561, 0.522133, -32.1042)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene71" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 22.7624, 0.522022, -19.9384)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene72" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 26.1531, 0.522133, -20.4221)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene73" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 24.5337, 0.522133, -20.3655)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene74" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 24.5865, 0.522133, -18.5683)
+skeleton = NodePath("../..")
+
+[node name="grass_chunk_scene75" parent="Grass" instance=ExtResource("4_s72hq")]
+transform = Transform3D(0.911205, 0, 0, 0, 0.911205, 0, 0, 0, 0.911205, 23.1593, 0.522133, -18.4361)
+skeleton = NodePath("../..")
+
+[node name="Blunderbuss" parent="." instance=ExtResource("6_7souj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.02149, 1.62566, 0.3886)
